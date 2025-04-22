@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping;
     
     Rigidbody2D rb2d;
-    
+    Vector2 moveInput; //for walk with AddForce
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,9 +21,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        move = Input.GetAxis("Horizontal");
+            //walk with AddForce
+        moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        rb2d.AddForce(moveInput * speed);
         
+            /*
+            //walk Left Right
+        move = Input.GetAxis("Horizontal");
         rb2d.linearVelocity = new Vector2(move * speed, rb2d.linearVelocity.y);
+        */
 
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
